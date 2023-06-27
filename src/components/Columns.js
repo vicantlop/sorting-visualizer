@@ -1,15 +1,22 @@
+import { useSelector } from "react-redux/es/hooks/useSelector";
+
+
 const Columns = () => {
+    const { columns } = useSelector((state) => state.columns)
+
+    const columnElements = []
+
+    for (let i = 0; i < columns; i++) {
+        columnElements.push(
+            <div className="col bg-success border border-danger border-1">
+                1
+            </div>
+        )
+    }
+
     return (
-        <div class="row flex-nowrap m-5">
-            <div class="col bg-success m-1 border border-danger border-5">
-                1
-            </div>
-            <div class="col bg-danger m-1 border border-warning border-5">
-                1
-            </div>
-            <div class="col bg-warning m-1 border border-success border-5">
-                1
-            </div>
+        <div className="row m-5">
+            {columnElements}
         </div>
     )
 }
