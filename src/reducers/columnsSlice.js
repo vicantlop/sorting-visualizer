@@ -11,7 +11,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export const columnsSlice = createSlice({
     name: 'columns',
     initialState: {
-        columns: 0,
+        columns: 50,
     },
     reducers: {
         setColumns: (state, action) => {

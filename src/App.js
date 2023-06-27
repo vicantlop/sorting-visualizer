@@ -1,13 +1,13 @@
 import Navbar from './components/Navbar';
 import Columns from './components/Columns';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setColumns } from './reducers/columnsSlice';
 
 function App() {
   const dispatch = useDispatch()
+  const { columns } = useSelector((state) => state.columns)
 
-  const handleClick = (event) => {
-    event.preventDefault();
+  const handleChangle = (event) => {
     const columns = parseInt(event.target.value)
     dispatch(setColumns(columns))
   }
@@ -16,9 +16,8 @@ function App() {
     <div className="App">
       <Navbar />
       <div className="container-fluid text-center border border-success border-5">
-        <button type="button" className="btn btn-success" onClick={handleClick} value={10}>10</button>
-        <button type="button" className="btn btn-danger" onClick={handleClick} value={50}>50</button>
-        <button type="button" className="btn btn-warning" onClick={handleClick} value={100}>100</button>
+        <label htmlFor="customRange2" className="form-label">Example range:{columns}</label>
+        <input type="range" className="form-range" min="10" max="100" id="customRange2" onChange={handleChangle}></input>
         <Columns />
       </div>
     </div>
