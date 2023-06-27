@@ -12,11 +12,15 @@ export const columnsSlice = createSlice({
     name: 'columns',
     initialState: {
         columns: 50,
+        array: []
     },
     reducers: {
         setColumns: (state, action) => {
             state.columns = action.payload
         },
+        setArray: (state, action) => {
+            state.array = action.payload
+        }
     },
     extraReducers: (builder) => {
         // builder.addCase(fetchcolumns.fulfilled, (state, action) => {
@@ -26,6 +30,6 @@ export const columnsSlice = createSlice({
 })
 
 //action creators
-export const { setColumns, deleteCity } = columnsSlice.actions
+export const { setColumns, setArray } = columnsSlice.actions
 
 export default columnsSlice.reducer
