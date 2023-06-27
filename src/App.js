@@ -2,21 +2,25 @@ import Navbar from './components/Navbar';
 import Columns from './components/Columns';
 import { useDispatch, useSelector } from 'react-redux';
 import { setColumns, setArray } from './reducers/columnsSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createArray } from './algorithms/createArray';
+import { bubbleSort } from './algorithms/bubbleSort';
 
 function App() {
   const dispatch = useDispatch()
   const { columns } = useSelector((state) => state.columns)
+  const arrayToSort = useSelector((state) => state.columns.array)
   const [rangeLock, setRangeLock] = useState("Lock Range")
+
+  useEffect(() => {
+    const array = createArray(columns)
+    dispatch(setArray(array))
+  }, [])
 
   const handleChangle = (event) => {
     const columns = parseInt(event.target.value)
     dispatch(setColumns(columns))
-    event.preventDefault()
-    let array = [];
-    while (array.length < columns) {
-      array.push(Math.floor(Math.random() * 450) + 10)
-    }
+    const array = createArray(columns)
     dispatch(setArray(array))
   }
 
@@ -32,11 +36,18 @@ function App() {
     }
   }
 
+  const bubble = (event) => {
+    event.preventDefault()
+    const array = bubbleSort(arrayToSort)
+    dispatch(setArray(array))
+  }
+
   return (
     <div className="App">
       <Navbar />
       <div className="container-fluid text-center border border-success border-5">
         <button type="button" className="btn btn-primary" onClick={lock}>{rangeLock}</button>
+        <button type="button" className="btn btn-primary" onClick={bubble}>Bubble Up</button>
         <label htmlFor="customRange2" className="form-label">Example range:{columns}</label>
         <input type="range" className="form-range" min="10" max="100" id="customRange2" onChange={handleChangle}></input>
         <Columns />
